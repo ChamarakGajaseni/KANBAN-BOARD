@@ -52,7 +52,7 @@ async def read_boards(db: db_dependency, skip: int=0, limit: int=100):
     return boards
 
 @app.post("/boards/", response_model=BoardModel)
-async def create_boards(board: BoardBase, db: db_dependency, skip: int=0, limit: int=100):
+async def create_boards(board: BoardBase, db: db_dependency):
     board = models.Board(**board.model_dump())
     db.add(board)
     db.commit()

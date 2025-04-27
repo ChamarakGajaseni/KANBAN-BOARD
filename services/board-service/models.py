@@ -17,7 +17,9 @@ class BoardColumn(Base):
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String(50), nullable=False)
     position = Column(Integer, default=0)  # Order of columns (optionally dragging)
+    board_id = Column(Integer, ForeignKey('boards.id'))
     
+    board = relationship("Board", back_populates="columns")
     tasks = relationship('Task', back_populates='column', cascade="all, delete")
     
 class Task(Base):
@@ -35,4 +37,4 @@ class Task(Base):
     # assigned_user_id = Column(Integer, ForeignKey('users.id'), nullable=True)
 
     column = relationship('BoardColumn', back_populates='tasks')
-    assigned_user = relationship('User', back_populates='tasks')
+    # assigned_user = relationship('User', back_populates='tasks')

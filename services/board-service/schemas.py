@@ -4,7 +4,6 @@ from typing import List, Optional
 # === Board Schemas ===
 class BoardBase(BaseModel):
     name: str
-    description: Optional[str] = None
     
 class BoardModel(BoardBase):
     id: int
