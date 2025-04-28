@@ -45,6 +45,7 @@ db_dependency = Annotated[Session, Depends(get_db)]
 models.Base.metadata.create_all(bind=engine)
 
 
+""" === Boards CRUD === """
 
 @app.get("/boards/", response_model=List[BoardModel])
 async def read_boards(db: db_dependency, skip: int=0, limit: int=100):
@@ -112,4 +113,38 @@ async def delete_column(column_id: int, db: db_dependency):
     db.delete(db_column)
     db.commit()
     return {"message": "Column deleted"}
+
+
+@app.get("/columns/{column_id}/tasks/", response_model=List[TaskModel])
+async def read_tasks(column_id: int, db: db_dependency):
+    tasks = db.query(models.Task).filter(models.Task.column_id == column_id).all()
+    return tasks
+
+@app.post("/columns/{column_id}/tasks/", response_model=TaskModel)
+async def create_task(column_id: int, task: TaskBase, db: db_dependency):
+    db_task = models.Task(**task.model_dump(), column_id=column_id)
+    db.add(db_task)
+    db.commit()
+    db.refresh(db_task)
+    return db_task
+
+@app.put("/tasks/{task_id}", response_model=TaskModel)
+async def update_task(task_id: int, task: TaskBase, db: db_dependency):
+    db_task = db.query(models.Task).filter(models.Task.id == task_id).first()
+    if not db_task:
+        raise HTTPException(status_code=404, detail="Task not found")
+    for key, value in task.model_dump().items():
+        setattr(db_task, key, value)
+    db.commit()
+    db.refresh(db_task)
+    return db_task
+
+@app.delete("/tasks/{task_id}")
+async def delete_task(task_id: int, db: db_dependency):
+    db_task = db.query(models.Task).filter(models.Task.id == task_id).first()
+    if not db_task:
+        raise HTTPException(status_code=404, detail="Task not found")
+    db.delete(db_task)
+    db.commit()
+    return {"message": "Task deleted"}
 

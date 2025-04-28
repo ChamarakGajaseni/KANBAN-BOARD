@@ -17,20 +17,15 @@ class TaskBase(BaseModel):
     status: Optional[str] = "To Do"
     tags: Optional[str] = None
     position: Optional[int] = 0
+    description: Optional[str]
     # assigned_user_id: Optional[int] = None
 
-class TaskCreate(TaskBase):
-    pass
-
-class TaskUpdate(TaskBase):
-    pass
-
-class TaskOut(TaskBase):
+class TaskModel(TaskBase):
     id: int
-    column_id: int
 
-    class Config:
-        orm_mode = True
+    # class Config:
+    #     orm_mode = True
+    
 
 # === BoardColumn Schemas ===
 class BoardColumnBase(BaseModel):
@@ -43,13 +38,13 @@ class BoardColumnModel(BoardColumnBase):
     #     orm_mode = True
     #     from_attributes = True
 
-class BoardColumnOut(BoardColumnBase):
-    id: int
-    board_id: int
-    tasks: List[TaskOut] = []
+# class BoardColumnOut(BoardColumnBase):
+#     id: int
+#     board_id: int
+#     tasks: List[TaskOut] = []
 
-    class Config:
-        orm_mode = True
+#     class Config:
+#         orm_mode = True
 
 # === Board Schemas ===
 # class BoardBase(BaseModel):
