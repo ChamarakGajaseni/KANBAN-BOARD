@@ -17,7 +17,7 @@ class TaskBase(BaseModel):
     status: Optional[str] = "To Do"
     tags: Optional[str] = None
     position: Optional[int] = 0
-    assigned_user_id: Optional[int] = None
+    # assigned_user_id: Optional[int] = None
 
 class TaskCreate(TaskBase):
     pass
@@ -37,11 +37,11 @@ class BoardColumnBase(BaseModel):
     name: str
     position: Optional[int] = 0
 
-class BoardColumnCreate(BoardColumnBase):
-    pass
-
-class BoardColumnUpdate(BoardColumnBase):
-    pass
+class BoardColumnModel(BoardColumnBase):
+    id: int
+    # class Config:
+    #     orm_mode = True
+    #     from_attributes = True
 
 class BoardColumnOut(BoardColumnBase):
     id: int

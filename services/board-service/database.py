@@ -8,7 +8,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # MySQL database URL with PyMySQL
-URL_DATABASE = os.getenv('BOARD_DATABASE_URL', 'mysql+pymysql://root:@127.0.0.1:3306/board-ervices')
+URL_DATABASE = os.getenv('BOARD_DATABASE_URL', 'mysql+pymysql://root:@127.0.0.1:3306/board-service')
 
 # Create engine without check_same_thread since it's MySQL
 engine = create_engine(URL_DATABASE)
