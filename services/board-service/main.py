@@ -45,7 +45,7 @@ db_dependency = Annotated[Session, Depends(get_db)]
 models.Base.metadata.create_all(bind=engine)
 
 
-""" === Boards CRUD === """
+""" Boards CRUD """
 
 @app.get("/boards/", response_model=List[BoardModel])
 async def read_boards(db: db_dependency, skip: int=0, limit: int=100):
@@ -81,6 +81,8 @@ async def delete_board(board_id: int, db: db_dependency):
     db.commit()
     return {"message": "Board deleted"}
 
+""" Columns CRUD """
+
 @app.get("/boards/{board_id}/columns/", response_model=List[BoardColumnModel])
 async def read_columns(board_id: int, db: db_dependency):
     columns = db.query(models.BoardColumn).filter(models.BoardColumn.board_id == board_id).all()
@@ -114,6 +116,7 @@ async def delete_column(column_id: int, db: db_dependency):
     db.commit()
     return {"message": "Column deleted"}
 
+""" Tasks CRUD """
 
 @app.get("/columns/{column_id}/tasks/", response_model=List[TaskModel])
 async def read_tasks(column_id: int, db: db_dependency):
