@@ -14,10 +14,6 @@ app = FastAPI()
 async def check():
     return 'hello'
 
-@app.get("/api")
-async def root():
-    return {"message": "Another Backend Test"}
-
 origins = [
     "http://localhost:3000"
 ]

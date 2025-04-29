@@ -2,7 +2,7 @@
 
 **NOTED** : If the non-alembic ```database.db``` exist, then deletes that file before making initial migration.
 
-## 1. Make migrations.
+## 1. Make migrations (In each services if needed).
 
 - Make migration according to latest model update.
 
