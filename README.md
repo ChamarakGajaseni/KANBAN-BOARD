@@ -5,7 +5,7 @@
 
 ## Installation
 
-[Installation]()
+[Installation](Installation.md)
 
 ## Running the Application
 
@@ -43,17 +43,10 @@ echo "Starting Notification Service..."
 
 - Run frontend
 ```
+cd front-end
 npm install
 npm start
 ```
 
 ** Please make sure that your path is in the KANBAN-BOARD directory.
 
-## Setting Up Social Applications
-
-## Demo Admin
-
-## Demo Users
-| Username | Password |
-| -------- | ------- |
-| test@example.com | 123456 |
